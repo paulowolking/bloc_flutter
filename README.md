@@ -8,7 +8,7 @@ O modelo de dados com apenas uma tabela chamada de ```transactions``` é este:
   "id": "1d478999-fbdf-4081-8273-d3f3dbd6d51e",
   "value": 200,
   "contact": {
-    "name": "gui",
+    "name": "Paulo",
     "accountNumber": 1000
   },
   "dateTime": "2022-01-27 10:52:48"
