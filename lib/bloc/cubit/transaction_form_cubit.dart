@@ -6,9 +6,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import '../../http/webclients/transaction_webclient.dart';
-import '../../models/balance.dart';
+import '../../models/notifiers/balance.dart';
 import '../../models/transaction.dart';
-import '../../models/transfers.dart';
+import '../../models/notifiers/transfers.dart';
 import '../bloc_state.dart';
 
 class TransactionFormCubit extends Cubit<BlocState> {

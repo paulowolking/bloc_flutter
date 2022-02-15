@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bytebank/components/theme.dart';
-import 'package:bytebank/models/balance.dart';
+import 'package:bytebank/models/notifiers/balance.dart';
 import 'package:bytebank/models/contact.dart';
-import 'package:bytebank/models/transfers.dart';
+import 'package:bytebank/models/notifiers/transfers.dart';
 import 'package:bytebank/screens/contact/contact_form.dart';
 import 'package:bytebank/screens/contact/contacts_list.dart';
 import 'package:bytebank/screens/dashboard/dashboard.dart';
@@ -18,7 +18,7 @@ import 'package:flutter/foundation.dart' show kDebugMode;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-import 'models/name.dart';
+import 'bloc/cubit/name.dart';
 
 //Apenas em debug.
 class LogObserver extends BlocObserver {
@@ -51,6 +51,7 @@ void main() async {
             ChangeNotifierProvider(create: (context) => Tranfers()),
           ],
           child: BlocProvider(
+            //Aqui pegaria de um shared ou database.
             create: (_) => NameCubit('Paulo'),
             child: const ByteBankApp(),
           ),
@@ -84,7 +85,7 @@ class ByteBankApp extends StatelessWidget {
               });
             case 'contact_form':
               return MaterialPageRoute(builder: (context) {
-                return ContactForm();
+                return ContactFormContainer();
               });
             case 'transaction_list':
               return MaterialPageRoute(builder: (context) {
@@ -96,11 +97,11 @@ class ByteBankApp extends StatelessWidget {
               });
             case 'deposit_form':
               return MaterialPageRoute(builder: (context) {
-                return DepositForm();
+                return const DepositContainer();
               });
             case 'change_name':
               return MaterialPageRoute(builder: (context) {
-                return NameContainer();
+                return const NameContainer();
               });
             default:
               return null;

@@ -3,7 +3,7 @@ import 'package:bytebank/screens/dashboard/balance_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/name.dart';
+import '../../bloc/cubit/name.dart';
 
 class DashboardContainer extends BlocContainer {
   @override
@@ -51,7 +51,7 @@ class DashboardView extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisCount: 2,
               children: <Widget>[
-                _FeatureItem('Depositar', Icons.monetization_on,
+                _FeatureItem('Deposit', Icons.monetization_on,
                     onClick: () =>
                         Navigator.of(context).pushNamed('deposit_form')),
                 _FeatureItem('Transfer', Icons.monetization_on,

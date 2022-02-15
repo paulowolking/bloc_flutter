@@ -1,21 +1,47 @@
-import 'package:bytebank/models/balance.dart';
+import 'package:bytebank/bloc/bloc_state.dart';
+import 'package:bytebank/bloc/cubit/deposit_cubit.dart';
+import 'package:bytebank/components/container.dart';
+import 'package:bytebank/models/notifiers/balance.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
-const _titleAppBar = 'Receber depósito';
+const _titleAppBar = 'New deposit';
 
-class DepositForm extends StatelessWidget {
+class DepositContainer extends BlocContainer {
+  const DepositContainer({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider<DepositCubit>(
+        create: (buildContext) {
+          return DepositCubit();
+        },
+        child: BlocListener<DepositCubit, BlocState>(
+          listener: (context, state) {
+            if (state is DoneBlocState) {
+              Navigator.pop(context);
+            }
+          },
+          child: _DepositForm(),
+        ));
+  }
+}
+
+class _DepositForm extends StatelessWidget {
   static const _placeholderValue = '0.00';
-  static const _placeholTitleValue = 'Valor';
-  static const _placeholTitleConfirm = 'Confirmar';
+  static const _placeholTitleValue = 'Value';
+  static const _placeholTitleConfirm = 'Confirm';
 
   final TextEditingController _valueController = TextEditingController();
+
+  _DepositForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titleAppBar),
+        title: const Text(_titleAppBar),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -38,7 +64,8 @@ class DepositForm extends StatelessWidget {
                 child: TextField(
                   controller: _valueController,
                   style: const TextStyle(fontSize: 24.0),
-                  decoration: const InputDecoration(labelText: 'Value'),
+                  decoration:
+                      const InputDecoration(labelText: _placeholderValue),
                   keyboardType:
                       const TextInputType.numberWithOptions(decimal: true),
                 ),
@@ -49,13 +76,14 @@ class DepositForm extends StatelessWidget {
                   alignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
-                      child: const Text('Depositar'),
+                      child: const Text(_placeholTitleConfirm),
                       onPressed: () {
-                        _createDeposit(context);
+                        BlocProvider.of<DepositCubit>(context)
+                            .createDeposit(context, _valueController.text);
                       },
                     ),
                     ElevatedButton(
-                      child: const Text('Nova transferência'),
+                      child: const Text('New transfer'),
                       onPressed: () {
                         Navigator.of(context).pushNamed('contacts_list');
                       },
@@ -68,21 +96,5 @@ class DepositForm extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _createDeposit(context) {
-    final double? value = double.tryParse(_valueController.text);
-    if (_validDeposit(value)) {
-      _updateState(context, value);
-      Navigator.pop(context);
-    }
-  }
-
-  bool _validDeposit(value) {
-    return value != null;
-  }
-
-  void _updateState(context, value) {
-    Provider.of<Balance>(context, listen: false).add(value);
   }
 }

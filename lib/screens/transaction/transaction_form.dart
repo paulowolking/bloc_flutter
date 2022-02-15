@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
 import '../../bloc/cubit/transaction_form_cubit.dart';
 import '../../components/error.dart';
-import '../../models/balance.dart';
+import '../../models/notifiers/balance.dart';
 
 class TransactionFormContainer extends BlocContainer {
   final Contact _contact;

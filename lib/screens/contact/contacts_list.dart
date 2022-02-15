@@ -9,6 +9,8 @@ import '../../bloc/cubit/contact_list_cubit.dart';
 import 'contact_item.dart';
 
 class ContactListContainer extends BlocContainer {
+  const ContactListContainer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ContactListCubit>(

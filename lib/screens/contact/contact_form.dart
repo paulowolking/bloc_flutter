@@ -1,19 +1,34 @@
-import 'package:bytebank/database/dao/contact_dao.dart';
+import 'package:bytebank/bloc/cubit/contact_form_cubit.dart';
+import 'package:bytebank/components/container.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContactForm extends StatefulWidget {
+import '../../bloc/bloc_state.dart';
+
+class ContactFormContainer extends BlocContainer {
   @override
-  State<ContactForm> createState() => _ContactFormState();
+  Widget build(BuildContext context) {
+    return BlocProvider<ContactFormCubit>(
+        create: (buildContext) {
+          return ContactFormCubit();
+        },
+        child: BlocListener<ContactFormCubit, BlocState>(
+          listener: (context, state) {
+            if (state is DoneBlocState) {
+              Navigator.pop(context);
+            }
+          },
+          child: _ContactFormState(),
+        ));
+  }
 }
 
-class _ContactFormState extends State<ContactForm> {
+class _ContactFormState extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
 
   final TextEditingController _accountNumberController =
       TextEditingController();
-
-  final ContactDao _contactDao = ContactDao();
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +65,7 @@ class _ContactFormState extends State<ContactForm> {
                         int.tryParse(_accountNumberController.text);
                     debugPrint(accountNumber.toString());
                     final Contact newContact = Contact(0, name, accountNumber);
-                    _contactDao.save(newContact).then((id) => Navigator.pop(context));
+                    BlocProvider.of<ContactFormCubit>(context).save(newContact);
                   },
                   child: const Text('Create'),
                 ),

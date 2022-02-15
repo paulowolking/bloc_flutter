@@ -2,16 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../components/container.dart';
-import '../models/name.dart';
+import '../bloc/cubit/name.dart';
 
 class NameContainer extends BlocContainer {
+  const NameContainer({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return NameView();
+    return _NameView();
   }
 }
 
-class NameView extends StatelessWidget {
+class _NameView extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
 
   @override

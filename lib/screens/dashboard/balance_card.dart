@@ -1,4 +1,4 @@
-import 'package:bytebank/models/balance.dart';
+import 'package:bytebank/models/notifiers/balance.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
