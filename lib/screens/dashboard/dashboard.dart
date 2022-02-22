@@ -1,5 +1,6 @@
 import 'package:bytebank/components/container.dart';
 import 'package:bytebank/screens/dashboard/balance_card.dart';
+import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -17,6 +18,8 @@ class DashboardView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = TranslateI18n(context);
+
     // final name = context.read<NameCubit>().state;
     return Scaffold(
       appBar: AppBar(
@@ -51,16 +54,16 @@ class DashboardView extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisCount: 2,
               children: <Widget>[
-                _FeatureItem('Deposit', Icons.monetization_on,
+                _FeatureItem(i18n.deposit, Icons.monetization_on,
                     onClick: () =>
                         Navigator.of(context).pushNamed('deposit_form')),
-                _FeatureItem('Transfer', Icons.monetization_on,
+                _FeatureItem(i18n.transfer, Icons.monetization_on,
                     onClick: () =>
                         Navigator.of(context).pushNamed('contacts_list')),
-                _FeatureItem('Transaction Feed', Icons.description,
+                _FeatureItem(i18n.transaction_feed, Icons.description,
                     onClick: () =>
                         Navigator.of(context).pushNamed('transaction_list')),
-                _FeatureItem('Change name', Icons.person_outline,
+                _FeatureItem(i18n.change_name, Icons.person_outline,
                     onClick: () =>
                         Navigator.of(context).pushNamed('change_name')),
               ],

@@ -1,8 +1,8 @@
+import 'package:bytebank/bloc/cubit/name.dart';
+import 'package:bytebank/components/container.dart';
+import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../components/container.dart';
-import '../bloc/cubit/name.dart';
 
 class NameContainer extends BlocContainer {
   const NameContainer({Key? key}) : super(key: key);
@@ -18,11 +18,13 @@ class _NameView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final i18n = TranslateI18n(context);
+
     _nameController.text = context.read<NameCubit>().state;
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Change name'),
+          title: Text(i18n.change_name),
         ),
         body: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -30,8 +32,8 @@ class _NameView extends StatelessWidget {
             children: [
               TextField(
                 controller: _nameController,
-                decoration: const InputDecoration(
-                  labelText: 'Desired name: ',
+                decoration: InputDecoration(
+                  labelText: i18n.desired_name,
                 ),
                 style: const TextStyle(fontSize: 24),
               ),
@@ -44,7 +46,7 @@ class _NameView extends StatelessWidget {
                         final name = _nameController.text;
                         context.read<NameCubit>().change(name);
                       },
-                      child: const Text('Change')),
+                      child: Text(i18n.change)),
                 ),
               )
             ],

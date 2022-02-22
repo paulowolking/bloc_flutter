@@ -1,18 +1,23 @@
 import 'package:bytebank/models/notifiers/balance.dart';
+import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class BalanceCard extends StatelessWidget {
+  const BalanceCard({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    final i18n = TranslateI18n(context);
+
     return Card(
       child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Text(
-              'Seu saldo',
-              style: TextStyle(
+              i18n.your_balance,
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),

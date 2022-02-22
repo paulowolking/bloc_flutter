@@ -1,12 +1,11 @@
+import 'package:bytebank/bloc/bloc_state.dart';
 import 'package:bytebank/bloc/cubit/transaction_list_cubit.dart';
 import 'package:bytebank/components/centered_message.dart';
 import 'package:bytebank/components/progress.dart';
-import 'package:bytebank/http/webclients/transaction_webclient.dart';
 import 'package:bytebank/models/transaction.dart';
+import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../bloc/bloc_state.dart';
 
 class TransactionListContainer extends StatelessWidget {
   const TransactionListContainer({Key? key}) : super(key: key);
@@ -27,12 +26,13 @@ class TransactionListContainer extends StatelessWidget {
 class _TransactionsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final i18n = TranslateI18n(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Transactions'),
+        title: Text(i18n.transaction_feed),
       ),
-      body: BlocBuilder<TransactionListCubit, BlocState>(
-          builder: (context, state) {
+      body: BlocBuilder<TransactionListCubit, BlocState>(builder: (context, state) {
         if (state is LoadingBlocState) {
           return const Progress();
         }
@@ -41,7 +41,7 @@ class _TransactionsList extends StatelessWidget {
           List<Transaction> transactions = state.result;
           if (transactions.isEmpty) {
             return CenteredMessage(
-              'No transactions found',
+              i18n.no_transaction_found,
               icon: Icons.warning,
             );
           }
@@ -74,13 +74,13 @@ class _TransactionsList extends StatelessWidget {
 
         if (state is ErrorBlocState) {
           return CenteredMessage(
-            'Unknown error',
+            i18n.unknow_error,
             icon: Icons.warning,
           );
         }
 
         return CenteredMessage(
-          'Unknown error',
+          i18n.unknow_error,
           icon: Icons.warning,
         );
       }),

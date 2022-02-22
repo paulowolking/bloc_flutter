@@ -11,6 +11,7 @@ import 'package:bytebank/screens/deposit/deposit_form.dart';
 import 'package:bytebank/screens/change_name.dart';
 import 'package:bytebank/screens/transaction/transaction_form.dart';
 import 'package:bytebank/screens/transaction/transaction_list.dart';
+import 'package:bytebank/values/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
 
 import 'bloc/cubit/name.dart';
+import 'bloc/cubit/localization_cubit.dart';
 
 //Apenas em debug.
 class LogObserver extends BlocObserver {
@@ -50,9 +52,15 @@ void main() async {
             ChangeNotifierProvider(create: (context) => Balance(0)),
             ChangeNotifierProvider(create: (context) => Tranfers()),
           ],
-          child: BlocProvider(
-            //Aqui pegaria de um shared ou database.
-            create: (_) => NameCubit('Paulo'),
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<NameCubit>(
+                create: (BuildContext context) => NameCubit('Paulo'),
+              ),
+              BlocProvider<CurrentLocaleCubit>(
+                create: (BuildContext context) => CurrentLocaleCubit('en'),
+              ),
+            ],
             child: const ByteBankApp(),
           ),
         ),
@@ -74,32 +82,33 @@ class ByteBankApp extends StatelessWidget {
         initialRoute: '/',
         onGenerateRoute: (RouteSettings settings) {
           final arguments = settings.arguments;
+
           switch (settings.name) {
-            case '/':
+            case AppRoutes.home:
               return MaterialPageRoute(builder: (context) {
                 return DashboardContainer();
               });
-            case 'contacts_list':
+            case AppRoutes.contactsList:
               return MaterialPageRoute(builder: (context) {
-                return ContactListContainer();
+                return const ContactListContainer();
               });
-            case 'contact_form':
+            case AppRoutes.contactForm:
               return MaterialPageRoute(builder: (context) {
                 return ContactFormContainer();
               });
-            case 'transaction_list':
+            case AppRoutes.transactionsList:
               return MaterialPageRoute(builder: (context) {
                 return const TransactionListContainer();
               });
-            case 'transaction_form':
+            case AppRoutes.transactionForm:
               return MaterialPageRoute(builder: (context) {
                 return TransactionFormContainer(arguments as Contact);
               });
-            case 'deposit_form':
+            case AppRoutes.depositForm:
               return MaterialPageRoute(builder: (context) {
                 return const DepositContainer();
               });
-            case 'change_name':
+            case AppRoutes.changeName:
               return MaterialPageRoute(builder: (context) {
                 return const NameContainer();
               });

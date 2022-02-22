@@ -1,6 +1,6 @@
 # bytebank
 
-Projeto de estudo com o uso de Flutter, Provider, Crashlytics e Bloc.
+Projeto de estudo com o uso de Flutter, Provider, Crashlytics, Sqlite e Bloc.
 A api utilizada para testar requisições http foi criada em ```https://mockapi.io/```
 O modelo de dados com apenas uma tabela chamada de ```transactions``` é este:
 ```
