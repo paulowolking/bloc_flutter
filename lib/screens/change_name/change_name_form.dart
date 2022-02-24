@@ -4,16 +4,7 @@ import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class NameContainer extends BlocContainer {
-  const NameContainer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return _NameView();
-  }
-}
-
-class _NameView extends StatelessWidget {
+class NameView extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
 
   @override

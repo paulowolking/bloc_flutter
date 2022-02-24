@@ -1,32 +1,15 @@
 import 'package:bytebank/bloc/bloc_state.dart';
+import 'package:bytebank/bloc/cubit/contact_list_cubit.dart';
 import 'package:bytebank/components/container.dart';
 import 'package:bytebank/components/progress.dart';
 import 'package:bytebank/models/contact.dart';
+import 'package:bytebank/screens/contact/list/contact_item.dart';
 import 'package:bytebank/values/routes.dart';
 import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/cubit/contact_list_cubit.dart';
-import 'contact_item.dart';
-
-class ContactListContainer extends BlocContainer {
-  const ContactListContainer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<ContactListCubit>(
-      create: (BuildContext context) {
-        final cubit = ContactListCubit();
-        cubit.reload();
-        return cubit;
-      },
-      child: _ContacstList(),
-    );
-  }
-}
-
-class _ContacstList extends StatelessWidget {
+class ContacstList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final i18n = TranslateI18n(context);

@@ -4,13 +4,13 @@ import 'package:bytebank/components/theme.dart';
 import 'package:bytebank/models/notifiers/balance.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/models/notifiers/transfers.dart';
-import 'package:bytebank/screens/contact/contact_form.dart';
-import 'package:bytebank/screens/contact/contacts_list.dart';
-import 'package:bytebank/screens/dashboard/dashboard.dart';
-import 'package:bytebank/screens/deposit/deposit_form.dart';
-import 'package:bytebank/screens/change_name.dart';
-import 'package:bytebank/screens/transaction/transaction_form.dart';
-import 'package:bytebank/screens/transaction/transaction_list.dart';
+import 'package:bytebank/screens/change_name/change_name_route.dart';
+import 'package:bytebank/screens/contact/form/contact_form_route.dart';
+import 'package:bytebank/screens/contact/list/contact_list_route.dart';
+import 'package:bytebank/screens/dashboard/darshboard_route.dart';
+import 'package:bytebank/screens/deposit/deposit_form_route.dart';
+import 'package:bytebank/screens/transaction/form/transaction_form_route.dart';
+import 'package:bytebank/screens/transaction/list/transaction_list_route.dart';
 import 'package:bytebank/values/routes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
@@ -65,9 +65,7 @@ void main() async {
           ),
         ),
       );
-    },
-        (error, stack) =>
-            FirebaseCrashlytics.instance.recordError(error, stack));
+    }, (error, stack) => FirebaseCrashlytics.instance.recordError(error, stack));
   }, blocObserver: LogObserver());
 }
 
@@ -86,31 +84,31 @@ class ByteBankApp extends StatelessWidget {
           switch (settings.name) {
             case AppRoutes.home:
               return MaterialPageRoute(builder: (context) {
-                return DashboardContainer();
+                return DashboardRoute().build(context);
               });
             case AppRoutes.contactsList:
               return MaterialPageRoute(builder: (context) {
-                return const ContactListContainer();
+                return ContactListRoute().build(context);
               });
             case AppRoutes.contactForm:
               return MaterialPageRoute(builder: (context) {
-                return ContactFormContainer();
+                return ContactFormRoute().build(context);
               });
             case AppRoutes.transactionsList:
               return MaterialPageRoute(builder: (context) {
-                return const TransactionListContainer();
+                return TransactionListRoute().build(context);
               });
             case AppRoutes.transactionForm:
               return MaterialPageRoute(builder: (context) {
-                return TransactionFormContainer(arguments as Contact);
+                return TransactionFormRoute(arguments as Contact).build(context);
               });
             case AppRoutes.depositForm:
               return MaterialPageRoute(builder: (context) {
-                return const DepositContainer();
+                return DepositFormRoute().build(context);
               });
             case AppRoutes.changeName:
               return MaterialPageRoute(builder: (context) {
-                return const NameContainer();
+                return ChangeNameRoute().build(context);
               });
             default:
               return null;

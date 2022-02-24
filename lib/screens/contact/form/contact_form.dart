@@ -1,31 +1,10 @@
 import 'package:bytebank/bloc/cubit/contact_form_cubit.dart';
-import 'package:bytebank/components/container.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../bloc/bloc_state.dart';
-
-class ContactFormContainer extends BlocContainer {
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<ContactFormCubit>(
-        create: (buildContext) {
-          return ContactFormCubit();
-        },
-        child: BlocListener<ContactFormCubit, BlocState>(
-          listener: (context, state) {
-            if (state is DoneBlocState) {
-              Navigator.pop(context);
-            }
-          },
-          child: _ContactFormState(),
-        ));
-  }
-}
-
-class _ContactFormState extends StatelessWidget {
+class ContactFormState extends StatelessWidget {
   final TextEditingController _nameController = TextEditingController();
 
   final TextEditingController _accountNumberController = TextEditingController();

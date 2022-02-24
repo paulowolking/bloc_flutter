@@ -1,34 +1,12 @@
-import 'package:bytebank/bloc/bloc_state.dart';
 import 'package:bytebank/bloc/cubit/deposit_cubit.dart';
-import 'package:bytebank/components/container.dart';
 import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class DepositContainer extends BlocContainer {
-  const DepositContainer({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<DepositCubit>(
-        create: (buildContext) {
-          return DepositCubit();
-        },
-        child: BlocListener<DepositCubit, BlocState>(
-          listener: (context, state) {
-            if (state is DoneBlocState) {
-              Navigator.pop(context);
-            }
-          },
-          child: _DepositForm(),
-        ));
-  }
-}
-
-class _DepositForm extends StatelessWidget {
+class DepositForm extends StatelessWidget {
   final TextEditingController _valueController = TextEditingController();
 
-  _DepositForm({Key? key}) : super(key: key);
+  DepositForm({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +38,9 @@ class _DepositForm extends StatelessWidget {
                   controller: _valueController,
                   style: const TextStyle(fontSize: 24.0),
                   decoration:
-                      InputDecoration(labelText: i18n.placeholder_value),
+                  InputDecoration(labelText: i18n.placeholder_value),
                   keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
+                  const TextInputType.numberWithOptions(decimal: true),
                 ),
               ),
               Padding(

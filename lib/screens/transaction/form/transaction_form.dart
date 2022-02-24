@@ -12,32 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:uuid/uuid.dart';
 
-class TransactionFormContainer extends BlocContainer {
-  final Contact _contact;
-
-  TransactionFormContainer(this._contact);
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocProvider<TransactionFormCubit>(
-        create: (buildContext) {
-          return TransactionFormCubit();
-        },
-        child: BlocListener<TransactionFormCubit, BlocState>(
-          listener: (context, state) {
-            if (state is DoneBlocState) {
-              Navigator.pop(context);
-            }
-          },
-          child: _TransactionForm(_contact),
-        ));
-  }
-}
-
-class _TransactionForm extends StatelessWidget {
+class TransactionForm extends StatelessWidget {
   final Contact contact;
 
-  const _TransactionForm(this.contact);
+  const TransactionForm(this.contact);
 
   @override
   Widget build(BuildContext context) {

@@ -1,17 +1,8 @@
-import 'package:bytebank/components/container.dart';
+import 'package:bytebank/bloc/cubit/name.dart';
 import 'package:bytebank/screens/dashboard/balance_card.dart';
 import 'package:bytebank/values/translate_i18n.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../bloc/cubit/name.dart';
-
-class DashboardContainer extends BlocContainer {
-  @override
-  Widget build(BuildContext context) {
-    return const DashboardView();
-  }
-}
 
 class DashboardView extends StatelessWidget {
   const DashboardView({Key? key}) : super(key: key);
@@ -23,8 +14,7 @@ class DashboardView extends StatelessWidget {
     // final name = context.read<NameCubit>().state;
     return Scaffold(
       appBar: AppBar(
-        title: BlocBuilder<NameCubit, String>(
-            builder: (context, state) => Text('Welcome $state')),
+        title: BlocBuilder<NameCubit, String>(builder: (context, state) => Text('Welcome $state')),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -42,7 +32,7 @@ class DashboardView extends StatelessWidget {
                 ),
               ),
             ),
-            Align(
+            const Align(
               alignment: Alignment.topCenter,
               child: BalanceCard(),
             ),
@@ -55,17 +45,13 @@ class DashboardView extends StatelessWidget {
               crossAxisCount: 2,
               children: <Widget>[
                 _FeatureItem(i18n.deposit, Icons.monetization_on,
-                    onClick: () =>
-                        Navigator.of(context).pushNamed('deposit_form')),
+                    onClick: () => Navigator.of(context).pushNamed('deposit_form')),
                 _FeatureItem(i18n.transfer, Icons.monetization_on,
-                    onClick: () =>
-                        Navigator.of(context).pushNamed('contacts_list')),
+                    onClick: () => Navigator.of(context).pushNamed('contacts_list')),
                 _FeatureItem(i18n.transaction_feed, Icons.description,
-                    onClick: () =>
-                        Navigator.of(context).pushNamed('transaction_list')),
+                    onClick: () => Navigator.of(context).pushNamed('transaction_list')),
                 _FeatureItem(i18n.change_name, Icons.person_outline,
-                    onClick: () =>
-                        Navigator.of(context).pushNamed('change_name')),
+                    onClick: () => Navigator.of(context).pushNamed('change_name')),
               ],
             ),
           ],
